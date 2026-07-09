@@ -1,6 +1,6 @@
 /* Bake 'N' Wok — simple offline service worker */
 const CACHE = 'bakenwok-v1';
-const ASSETS = ['./bake_n_wok.html', './manifest.json', './icon.svg'];
+const ASSETS = ['./index.html', './manifest.json', './icon.svg'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
@@ -23,6 +23,6 @@ self.addEventListener('fetch', e => {
         caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {});
         return res;
       })
-      .catch(() => caches.match(e.request).then(r => r || caches.match('./bake_n_wok.html')))
+      .catch(() => caches.match(e.request).then(r => r || caches.match('./index.html')))
   );
 });
